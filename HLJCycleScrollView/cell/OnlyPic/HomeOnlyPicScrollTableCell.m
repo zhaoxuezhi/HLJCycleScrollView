@@ -29,83 +29,12 @@
 
 - (void)setPicArray:(NSArray<NSString *> *)picArray
 {
-    _pic1Array = nil;
-    _pic2Array = nil;
-    _pic3Array = nil;
-    
-    
     if(_picArray == picArray) {
         return;
     }
     _picArray = picArray;
     
     [self.scrollView reloadScrollView];
-}
-
-- (void)setPic1Array:(NSArray<NSString *> *)pic1Array
-{
-    _picArray = nil;
-    _pic2Array = nil;
-    _pic3Array = nil;
-    
-    if(_pic1Array == pic1Array) {
-        return;
-    }
-    _pic1Array = pic1Array;
-    
-    [self.scrollView reloadScrollView];
-}
-
-
-- (void)setPic2Array:(NSArray<NSString *> *)pic2Array
-{
-    _pic1Array = nil;
-    _picArray = nil;
-    _pic3Array = nil;
-    
-    
-    if(_pic2Array == pic2Array) {
-        return;
-    }
-    _pic2Array = pic2Array;
-    
-    [self.scrollView reloadScrollView];
-}
-
-
-- (void)setPic3Array:(NSArray<NSString *> *)pic3Array
-{
-    _pic1Array = nil;
-    _pic2Array = nil;
-    _picArray = nil;
-    
-    if(_pic3Array == pic3Array) {
-        return;
-    }
-    _pic3Array = pic3Array;
-    
-    [self.scrollView reloadScrollView];
-}
-
-
-- (NSArray<NSString *> *)currentArray
-{
-    if(_picArray) {
-        return _picArray;
-    }
-    
-    if(_pic1Array) {
-        return _pic1Array;
-    }
-    
-    if(_pic2Array) {
-        return _pic2Array;
-    }
-    
-    if(_pic3Array) {
-        return _pic3Array;
-    }
-    return [NSArray array];
 }
 
 
@@ -118,17 +47,16 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self currentArray].count;
+    return _picArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeOnlyPicCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeOnlyPicCollectionCell" forIndexPath:indexPath];
     
-    NSArray *array = [self currentArray];
-    NSInteger pageindex = indexPath.item % array.count ;
+    NSInteger pageindex = indexPath.item % _picArray.count ;
     
-    NSString *str = [self currentArray][pageindex];
+    NSString *str = _picArray[pageindex];
     [cell setImageUrlString:str];
     
     return cell;

@@ -13,13 +13,6 @@
 
 @property (nonatomic, strong) NSArray<NSString *> *picArray;
 
-@property (nonatomic, strong) NSArray<NSString *> *pic1Array;
-
-@property (nonatomic, strong) NSArray<NSString *> *pic2Array;
-
-@property (nonatomic, strong) NSArray<NSString *> *pic3Array;
-
-
 @property (nonatomic, strong) HLJCycleScrollView *scrollView;
 
 @end

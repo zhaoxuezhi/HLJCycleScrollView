@@ -134,19 +134,8 @@
     
     NSArray *array = _dataSource[indexPath.row];
     
-    if(indexPath.row%4 == 0) {
-        cell.picArray = array;
-        
-    } else if(indexPath.row%4 == 1) {
-        cell.pic1Array = array;
-        
-    } else if(indexPath.row%4 == 2) {
-        cell.pic2Array = array;
-        
-    } else {
-        cell.pic3Array = array;
-    }
-    
+    cell.picArray = array;
+
     return cell;
 }
 
