@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
 
+@property (nonatomic, strong) NSString *registerClassName;  // 注册collectionView 的 collectionViewCell 类名
+
 @end
 
 @implementation HLJCycleScrollView
@@ -60,12 +62,9 @@
     cycleScrollView.delegate = delegate;
     cycleScrollView.placeholderImage = placeholderImage;
     
-    NSArray *classes = [cycleScrollView.delegate registerCellClass];
+    cycleScrollView.registerClassName = [cycleScrollView.delegate classNameForRegisterCollectionCellClass];
     
-    for(int i = 0; i < classes.count; i ++) {
-        Class c = classes[i];
-        [cycleScrollView.mainView registerClass:c forCellWithReuseIdentifier:NSStringFromClass(c)];
-    }
+    [cycleScrollView.mainView registerClass:NSClassFromString(cycleScrollView.registerClassName) forCellWithReuseIdentifier:cycleScrollView.registerClassName];
     
     return cycleScrollView;
 }
@@ -124,7 +123,8 @@
         
         self.pageControl.numberOfPages = self.realItemsCount;
         
-        if (self.realItemsCount != 1) {
+        if (self.realItemsCount > 1) {
+            
             self.mainView.scrollEnabled = _scrollEnabled;
             
             if (_mainView.contentOffset.x == 0 &&  _totalItemsCount > 0) {
@@ -320,7 +320,11 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [self.delegate collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.registerClassName forIndexPath:indexPath];
+    
+    NSIndexPath *pageIndex = [NSIndexPath indexPathForItem:[self pageControlIndexWithCurrentCellIndex:indexPath.item] inSection:0];
+    
+    [self.delegate fiflterCollectionCell:cell withCollectionView:collectionView indexPath:pageIndex];
     
     return cell;
 }

@@ -25,11 +25,14 @@ typedef void(^ItemDidScrollOperationBlock)(NSInteger currentIndex);
 
 @required
 
-- (NSArray *)registerCellClass;
-
+// 配置有多少个 item
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+// 返回注册 collctionView 的 cell 类名
+- (NSString *)classNameForRegisterCollectionCellClass;
+
+// 配置每个cell
+- (void)fiflterCollectionCell:(UICollectionViewCell *)cell withCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexpath;
 
 @optional
 
@@ -90,7 +93,7 @@ typedef void(^ItemDidScrollOperationBlock)(NSInteger currentIndex);
 @property (nonatomic, strong) UIImage *placeholderImage;
 
 /*
- * 自动滚动间隔时间,默认2s 
+ * 自动滚动间隔时间,默认2s
  */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
 
@@ -100,18 +103,17 @@ typedef void(^ItemDidScrollOperationBlock)(NSInteger currentIndex);
 @property (nonatomic,assign) BOOL infiniteLoop;
 
 /*
- * 是否自动滚动,默认Yes 
+ * 是否自动滚动,默认Yes
  */
 @property (nonatomic,assign) BOOL autoScroll;
 
 /*
- * 图片滚动方向，默认为水平滚动 
+ * 图片滚动方向，默认为水平滚动
  */
 @property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
 
 
-/** 初始轮播图（推荐使用） */
-/** 初始轮播图（推荐使用） */
+/** 初始轮播图 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<HLJCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
 
 /**

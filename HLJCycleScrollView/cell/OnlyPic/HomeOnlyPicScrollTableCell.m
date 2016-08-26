@@ -37,12 +37,9 @@
     [self.scrollView reloadScrollView];
 }
 
-
-- (NSArray<Class> *)registerCellClass;
+- (NSString *)classNameForRegisterCollectionCellClass
 {
-    return @[
-             [HomeOnlyPicCollectionCell class],
-             ];
+    return NSStringFromClass([HomeOnlyPicCollectionCell class]);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -50,17 +47,15 @@
     return _picArray.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)fiflterCollectionCell:(UICollectionViewCell *)cell withCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexpath
 {
-    HomeOnlyPicCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeOnlyPicCollectionCell" forIndexPath:indexPath];
+    HomeOnlyPicCollectionCell *collectionCell = (HomeOnlyPicCollectionCell *)cell;
     
-    NSInteger pageindex = indexPath.item % _picArray.count ;
+    NSString *str = _picArray[indexpath.item];
     
-    NSString *str = _picArray[pageindex];
-    [cell setImageUrlString:str];
-    
-    return cell;
+    [collectionCell setImageUrlString:str];
 }
+
 
 - (void)layoutSubviews
 {

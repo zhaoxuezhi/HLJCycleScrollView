@@ -26,16 +26,15 @@
         _scrollView = [HLJCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), 30) delegate:self placeholderImage:nil];
         _scrollView.scrollDirection = UICollectionViewScrollDirectionVertical;
         _scrollView.showPageControl = NO;
+        _scrollView.scrollEnabled = NO;
     }
     return _scrollView;
 }
 
 
-- (NSArray<Class> *)registerCellClass;
+- (NSString *)classNameForRegisterCollectionCellClass
 {
-    return @[
-             [HomeLeftImageRightTableCollectionCell class],
-             ];
+    return NSStringFromClass([HomeLeftImageRightTableCollectionCell class]);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -43,20 +42,13 @@
     return _itemArray.count;
 }
 
-/**
- *    ⚠️ 这里的 dequeueReusableCellWithReuseIdentifier 必须为 CollectionCell 类名
- *    ⚠️ 取出元素下标一定要用 indexPath.item % cell个数， 
- */
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)fiflterCollectionCell:(UICollectionViewCell *)cell withCollectionView:(UICollectionView *)collectionView indexPath:(NSIndexPath *)indexpath
 {
-    HomeLeftImageRightTableCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeLeftImageRightTableCollectionCell" forIndexPath:indexPath];
+    HomeLeftImageRightTableCollectionCell *CollectionCell = (HomeLeftImageRightTableCollectionCell *)cell;
     
-    NSInteger pageindex = indexPath.item % self.itemArray.count ;
+    ItemModel *model = _itemArray[indexpath.item];
     
-    ItemModel *model = _itemArray[pageindex];
-    [cell setWithItem:model];
-    
-    return cell;
+    [CollectionCell setWithItem:model];
 }
 
 - (void)layoutSubviews
