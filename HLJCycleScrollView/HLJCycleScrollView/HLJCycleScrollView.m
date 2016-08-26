@@ -47,7 +47,7 @@
     _infiniteLoop = YES;
     _showPageControl = YES;
     _hidesForSinglePage = YES;
-    
+    _scrollEnabled = YES;
     _bannerImageViewContentMode = UIViewContentModeScaleToFill;
     
     self.backgroundColor = [UIColor lightGrayColor];
@@ -125,7 +125,7 @@
         self.pageControl.numberOfPages = self.realItemsCount;
         
         if (self.realItemsCount != 1) {
-            self.mainView.scrollEnabled = YES;
+            self.mainView.scrollEnabled = _scrollEnabled;
             
             if (_mainView.contentOffset.x == 0 &&  _totalItemsCount > 0) {
                 int targetIndex = 0;

@@ -55,6 +55,11 @@ typedef void(^ItemDidScrollOperationBlock)(NSInteger currentIndex);
 @property (nonatomic, assign) BOOL showPageControl;
 
 /**
+ *  是否可滚动
+ */
+@property (nonatomic, assign) BOOL scrollEnabled;
+
+/**
  *  只有一张图时是否隐藏 pageContrl
  */
 @property (nonatomic, assign) BOOL hidesForSinglePage;
